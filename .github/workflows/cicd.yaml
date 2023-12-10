@@ -23,16 +23,23 @@ jobs:
       - name: Run test
         run: make test
 
-      - name: Docker Hub login
+      - name: GHCR login
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_TOKEN }}
+      # - name: Docker Hub login
+      #   uses: docker/login-action@v2
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build&Push
         env:
           APP: "weathertelegrambot"
-          REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
+          REGISTRY: ghcr.io
+          # REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
         run: make image push TARGETARCH=$TARGETARCH
 
       - name: Clean
@@ -51,7 +58,7 @@ jobs:
 
       - run: echo "VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Update Helm charts
+      - name: Update Helm values
         uses: mikefarah/yq@master
         with:
           cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH)' helm/values.yaml

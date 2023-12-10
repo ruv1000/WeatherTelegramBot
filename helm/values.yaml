@@ -4,9 +4,15 @@
 
 replicaCount: 1
 image:
-  repository: "ruv1000"
+  registry: "ghcr.io"
+  repository: "ruv1000/WeatherTelegramBot"
   tag: "v1.0.7-5379a1e"
+  os: linux
   arch: amd64
+# image:
+#   repository: "ruv1000"
+#   tag: "v1.0.7-5379a1e"
+#   arch: amd64
 secret:
   tokenName: TELE_TOKEN
   tokenKey: token
