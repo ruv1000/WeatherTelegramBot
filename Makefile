@@ -2,8 +2,8 @@ APP=$(shell basename $(shell git remote get-url origin | tr '[:upper:]' '[:lower
 REGISTRY=ruv1000
 .DEFAULT_GOAL=build
 VERSION=$(shell git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")-$(shell git rev-parse --short HEAD)
-TARGETOS=$(shell uname | tr '[:upper:]' '[:lower:]')
-TARGETARCH=$(shell dpkg --print-architecture)
+TARGETOS=$(shell uname | tr '[:upper:]' '[:lower:]') #linux darwin windows
+TARGETARCH=$(shell dpkg --print-architecture) #amd64 arm64
 
 format:
 	gofmt -s -w ./
@@ -11,7 +11,6 @@ format:
 
 lint:
 	go vet ./...
-	golint
 
 test:
 	go test -v
