@@ -40,4 +40,4 @@ push:
 clean:
 	rm -rf WeatherTelegramBot
 	go clean
-	docker rmi ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
+	docker rmi ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
