@@ -6,7 +6,7 @@ replicaCount: 1
 image:
   registry: "ghcr.io"
   repository: "ruv1000/WeatherTelegramBot"
-  tag: "v1.0.7-5379a1e"
+  tag: "v1.0.7-785b066"
   os: linux
   arch: amd64
 # image:
