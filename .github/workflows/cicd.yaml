@@ -1,6 +1,9 @@
 name: WBOT-CICD
 
-on: push
+on:
+  push:
+    branches:
+      - development
 
 env:
   TARGETARCH: amd64
@@ -58,8 +61,14 @@ jobs:
         with:
           cmd: yq -i '.appVersion=strenv(VERSION)' helm/Chart.yaml
 
-      - run: |
+      - name: Set up Git
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+
+      - name: Commit and push changes
+        run: |
           git commit -am "update version $VERSION"
           git push
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
