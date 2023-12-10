@@ -56,7 +56,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - run: echo "VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+      - name: Set VERSION
+        run: echo "VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Update Helm values
         uses: mikefarah/yq@master
