@@ -1,0 +1,20 @@
+name: WBOT-CICD
+
+on: push
+
+env:
+  TARGETARCH: amd64
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Run test
+        run: make test
