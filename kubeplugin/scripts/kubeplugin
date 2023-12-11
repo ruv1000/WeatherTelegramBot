@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Define command-line arguments
+RESOURCE_TYPE=$1
+
+# Check if RESOURCE_TYPE is provided
+if [ -z "$RESOURCE_TYPE" ]; then
+  echo "Usage: $0 <resource_type> <namespace>"
+  exit 1
+fi
+
+# Print header for statistics
+echo "Resource, Namespace, Name, CPU, Memory"
+
+# Retrieve resource usage statistics from Kubernetes
+kubectl top $RESOURCE_TYPE -n $2 | tail -n +2 | while read line
+do
+  # Extract CPU and memory usage from the output
+  NAME=$(echo $line | awk '{print $1}')
+  CPU=$(echo $line | awk '{print $2}')
+  MEMORY=$(echo $line | awk '{print $3}')
+
+  # Output the statistics to the console
+  echo "$RESOURCE_TYPE, $2, $NAME, $CPU, $MEMORY"
+done
