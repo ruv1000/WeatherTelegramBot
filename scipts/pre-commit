@@ -1,0 +1,22 @@
+#!/bin/bash
+
+ENABLE_GITLEAKS=\$(git config --get hooks.gitleaks.enable)
+
+if [ "\$ENABLE_GITLEAKS" != "true" ]; then
+  exit 0
+fi
+
+if ! command -v gitleaks &> /dev/null; then
+  echo "Gitleaks is not installed. Please install it and run this script again."
+  exit 1
+fi
+
+gitleaks protect --staged
+gitleaks detect --redact  -v
+
+if [ \$? -ne 0 ]; then
+  echo "Error: Secrets found in the code. Commit rejected."
+  exit 1
+fi
+
+exit 0
