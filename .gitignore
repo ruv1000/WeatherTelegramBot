@@ -31,10 +31,6 @@ Thumbs.db
 .DS_Store
 ehthumbs.db
 
-# Ignore generated documentation
-doc/
-doc-*
-
 # Ignore compiled binary files
 *.exe
 *.out

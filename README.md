@@ -41,3 +41,7 @@ To install the helm chart:
 ```zsh
 helm install --set secret.tokenKey=<TELEGAM_TOKEN> --set secret.apikey=<OWM_API_KEY> weathertelegrambot https://github.com/ruv1000/WeatherTelegramBot/releases/download/v1.0.6/weathertelegrambot-0.1.0.tgz
 ```
+
+### Workflow
+
+![Image](./doc/workflow.png)
