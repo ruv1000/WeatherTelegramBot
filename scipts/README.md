@@ -10,3 +10,19 @@ chmod +x install.sh
 ```
 
 This script will automatically create the pre-commit hook file, add the necessary script to it, and enable the gitleaks check using git config.
+
+### Output
+
+```bash
+gitleaks detect -v
+
+   ○
+   │╲
+   │ ○
+   ○ ░
+   ░    gitleaks
+
+6:36PM INF 36 commits scanned.
+6:36PM INF scan completed in 140ms
+6:36PM INF no leaks found
+```
